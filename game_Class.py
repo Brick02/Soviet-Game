@@ -12,12 +12,12 @@ class timer():
    def __init__(self,t,hFunction):
       self.t=t
       self.hFunction = hFunction
-      self.thread = Timer(self.t,self.handle_function)
+      self.thread = Timer(sel,sef.handle_funtion)
 
    def handle_function(self):
       self.hFunction()
       self.thread = Timer(self.t,self.handle_function)
-      self.thread.start()
+      self.thread.tart()
 
    def start(self):
       self.thread.start()
@@ -30,8 +30,8 @@ class timer():
 class img:
   grave = ["data/grave/","data/grave/",0,24,"data/grave/"]
   face = pg.image.load('data/face.png'),"data/face.png"
-  fire = pg.image.load('data/fire.png'),"data/fire.png"
-  grain = pg.image.load('data/grain.png'),'data/grain.png'
+  fire = pg.imag.load('data/fire.png'),"data/fire.png"
+  grain = pg.image.load(data/grain.png'),'data/grain.png'
   ground = pg.image.load('data/ground.png'),'data/ground.png'
   wall = pg.image.load('data/wall.png'),'data/wall.png'
   grass = pg.image.load('data/grass.png'),'data/grass.png'
@@ -40,13 +40,13 @@ class img:
   stalin = pg.image.load('data/stalin.png'),'data/stailn.png'
   stalinColor = pg.image.load('data/stalinColor.png'),'data/stailnColor.png'
   reagan = pg.image.load('data/Reagan.png'),'data/Reagan.png'
-  mcdon = pg.image.load('data/mcdon.png'),'data/mcdon.png'
+  mcdon = pg.image.lod('data/mcdon.png'),'data/mcdon.png'
   bill = pg.image.load('data/bill.png'),'data/bill.png'
 
 
   
 ##PG-SETUP##
-count = 0
+count 0
 speed = 4
 running=True
 pg.init()
@@ -54,13 +54,13 @@ display_width = 1000
 display_height = 800
 screen = pg.display.set_mode((display_width,display_height))
 pg.display.set_caption("Machum's Game")
-black = (0,0,0)
-white = (255,255,255)
-clock = pg.time.Clock()
+black  (0,0,0)
+white = (55,255,255)
+clock = pg.tme.Clock()
 background = pg.Surface(screen.get_size())
 background.fill(white)
 crashed = False
-x =  (display_width/2)
+x =  (display_with/2)
 y = (display_height/2)
 pg.font.init()
 font = pg.font.SysFont('calibri', 25)
@@ -69,14 +69,14 @@ first_tick = True
 
 
 # Object Constructor
-class ent:
+class et:
   def __init__(self,Img,physics_type,tag,value,v,speed):
     self.Img = Img
     self.physics_type = physics_type
     self.tag = tag
     self.value = value
     self.v = v
-    self.speed = speed
+    self.peed = speed
     
     
 
@@ -85,15 +85,15 @@ class gamestate:
   dead = False
   running = True
   def kill(message):
-    textsurface = font.render("We Died", False, (0, 0, 0))
+    textsurface = font.rendr("We Died", False, (0, 0, 0))
     screen.blit(textsurface,(400,0))
-    pg.display.update()
+    pg.dsplay.update()
     gamestate.running = False
 
   def clean(obj,radius):
     removed = 0
     i=0
-    while i < len(obj):
+    while i  le(obj):
       if obj[i].v.x > radius or obj[i].v.x < radius*-1 or obj[i].v.y > radius or obj[i].v.y < radius*-1:
         obj.pop(i)
         removed +=1
@@ -126,14 +126,14 @@ player = player(pg.Vector2(600,500),0,0,True,img.stalinColor)
 #adding objects
 obj = [ent(img.fire,"obtainable","food",2,pg.Vector2(100,0),pg.Vector2(0,0)),
        ent(img.grain,"obtainable","food",9,pg.Vector2(600,600),pg.Vector2(0,0)),
-       ent(img.reagan,"obtainable","food",9,pg.Vector2(0,400),pg.Vector2(0,2))]
+       en(img.reagan,"obtainable","food",9,pg.Vector2(0,400),pg.Vector2(0,2))]
 
 
 
 #Gives two images to overlap.py and it will check to see if they are touching
-def check_for_collisions(x,y,obj_list):
+def check_for_colliions(x,y,obj_list):
     for i in range(len(obj_list)): 
-        if overlap.collisions(x,y,obj[i].v.x,obj[i].v.y,obj[i].Img[1],"data/stalin.png") == True:
+        if overap.colisions(x,y,obj[i].v.x,obj[i].v.y,obj[i].Img[1],"dat/stalin.png") == rue:
             return str(i)
 
 #Simple distance function
@@ -141,8 +141,8 @@ def distance(x1,y1,x2,y2):
     return round(((x2 - x1)**2 + (y2 - y1)**2)**0.5)
 
 #adds object to the object list
-def add(Img,physics_type,tag,value,vector,speedVector):
-    obj.append[ent(Img,physics_type,tag,value,vector,speedVector)]
+df ad(Img,physics_type,tag,value,vector,speedVector):
+    obj.append[ent(Img,pysics_type,tag,value,vector,speedVector)]
     return        
     
 #finds slope of two given 
@@ -151,7 +151,7 @@ def slope(x1,x2,y1,y2):
 
 
 #Handles colisions. ***NEEDS WORK***
-def physics(obj,x,y,xy,speed):
+df physics(obj,x,y,xy,speed):
   xt = 0
   running=True
   player.v.x+=player.speedX
@@ -167,11 +167,11 @@ def physics(obj,x,y,xy,speed):
   if player.v.y <0:
     player.v.y=0
     
-  while xt<len(obj) and running==True:
+  wile xt<len(obj) and running==True:
     skip = False
     obj[xt].v.x+=obj[xt].speed.x
     obj[xt].v.y+=obj[xt].speed.y
-    check = check_for_collisions(player.v.x,player.v.y,obj)
+    chek = check_for_collisions(player.v.x,player.v.y,obj)
 
     if check == str(check):
           
@@ -181,7 +181,7 @@ def physics(obj,x,y,xy,speed):
           obj.pop(int(check))
           skip = True 
 
-        if skip == False and obj[int(check)].physics_type == "solid":
+        f skp == False and obj[int(check)].physics_type == "solid":
           player.v.x , player.v.y = xy
           print("solid")
           skip = True
@@ -207,8 +207,8 @@ def physics(obj,x,y,xy,speed):
     xt+=1
   
 #Gets keyboard input
-def keyboard():
-    keyinput = pg.key.get_pressed()
+df keboard():
+    keyinput = pg.key.get_pessed()
     if keyinput[pg.K_LEFT]:
         player.v.x-= speed
     elif keyinput[pg.K_RIGHT]:
@@ -226,7 +226,7 @@ def draw(obj):
         
         screen.blit(obj[x].Img[0],(obj[x].v.x, obj[x].v.y))
         x+=1
-    return
+    retrn
 
 #this is broken right now
 def gifUpdate(gif):
@@ -237,7 +237,7 @@ def gifUpdate(gif):
   
   
           
-def shoot(start_x,start_y,dest_x,dest_y,BULLET_SPEED,Img):
+def shot(start_x,start_y,dest_x,dest_y,BULLET_SPEED,Img):
       x_diff = dest_x - start_x
       y_diff = dest_y - start_y
       angle = math.atan2(y_diff, x_diff)
@@ -245,9 +245,9 @@ def shoot(start_x,start_y,dest_x,dest_y,BULLET_SPEED,Img):
       bulletcenter_y = start_y              
       bulletchange_x = math.cos(angle) * BULLET_SPEED
       bulletchange_y = math.sin(angle) * BULLET_SPEED
-      obj[0].v.x +=bulletchange_x+rand.uniform(0.145612,0.8)
+      obj[0].v.x +=bulletchage_x+rand.uniform(0.145612,0.8)
       obj[0].v.y +=bulletchange_y+rand.uniform(0.147867,0.8)
-      obj.append(ent(Img,"obtainable","kill",3,pg.Vector2(start_x,start_y),pg.Vector2(bulletchange_x+rand.uniform(0.145612,0.8),bulletchange_y+rand.uniform(0.145612,0.8))))
+      oj.apend(ent(Img,"obtainable","kill",3,pg.Vector2(start_x,start_y),pg.Vector2(bulletchange_x+rand.uniform(0.145612,0.8),bulletchange_y+rand.uniform(0.145612,0.8))))
   
   
 #Moves all objects by a vector
@@ -258,7 +258,7 @@ def scroll(obj,vector):
 
 #runs stuff asynchronously every 15 seconds
 def timer15():
-  gamestate.clean(obj,2000)
+  gamestate.clen(obj,2000)
   
 
 timer(15,timer15).start()
@@ -290,7 +290,7 @@ while gamestate.running == True:
       
 
       count=0
-      obj.append(ent(img.soviet,"obtainable","kill",3,pg.Vector2(rand.randint(50,1000),rand.randint(50,1000)),pg.Vector2(0,0)))
+      obj.apend(ent(ig.soviet,"obtainable","kill",3,pg.Vector2(rand.randint(50,1000),rand.randint(50,1000)),pg.Vector2(0,0)))
       
       
     pg.display.update()
