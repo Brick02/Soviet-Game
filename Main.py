@@ -1,47 +1,48 @@
-imprt pygame as pg
+import pygame as pg
 import overlap
-iport time,math,os
-imprt random as rand
-fm threading import Timer,Thread,Event
+import time,math,os
+import random as rand
+from threading import Timer,Thread,Event
 
 
-Fae = 19
+
 # Runs functions asynchronously on a loop
-clas timer():
+class timer():
 
    def __init__(self,t,hFunction):
       self.t=t
       self.hFunction = hFunction
-      self.thread = Timer(slf.t,self.handle_function)
+      self.thread = Timer(self.t,self.handle_function)
 
    def handle_function(self):
       self.hFunction()
-      slf.tread = Timer(slf.t,self.handle_function)
+      self.thread = Timer(self.t,self.handle_function)
       self.thread.start()
 
    def start(self):
       self.thread.start()
 
    def cancel(self):
-      self.threadcancel()
+      self.thread.cancel()
   
 
 
 class img:
   grave = ["data/grave/","data/grave/",0,24,"data/grave/"]
-  face = pg.imag.load('data/face.png'),"data/face.png"
+  face = pg.image.load('data/face.png'),"data/face.png"
   fire = pg.image.load('data/fire.png'),"data/fire.png"
   grain = pg.image.load('data/grain.png'),'data/grain.png'
   ground = pg.image.load('data/ground.png'),'data/ground.png'
   wall = pg.image.load('data/wall.png'),'data/wall.png'
-  grass = pg.imag.load('data/grass.png'),'data/grass.png'
+  grass = pg.image.load('data/grass.png'),'data/grass.png'
   faceflat = pg.image.load('data/faceflat.png'),'data/faceflat.png'
-  soviet = pg.image.load('data/soviet-union.png),'data/soviet-union.png'
+  soviet = pg.image.load('data/soviet-union.png'),'data/soviet-union.png'
   stalin = pg.image.load('data/stalin.png'),'data/stailn.png'
   stalinColor = pg.image.load('data/stalinColor.png'),'data/stailnColor.png'
   reagan = pg.image.load('data/Reagan.png'),'data/Reagan.png'
   mcdon = pg.image.load('data/mcdon.png'),'data/mcdon.png'
   bill = pg.image.load('data/bill.png'),'data/bill.png'
+
 
   
 ##PG-SETUP##
@@ -50,19 +51,19 @@ speed = 4
 running=True
 pg.init()
 display_width = 1000
-dispay_height = 800
+display_height = 800
 screen = pg.display.set_mode((display_width,display_height))
 pg.display.set_caption("Machum's Game")
 black = (0,0,0)
-white = (255,255,255
+white = (255,255,255)
 clock = pg.time.Clock()
 background = pg.Surface(screen.get_size())
 background.fill(white)
-crashed = Fae
+crashed = False
 x =  (display_width/2)
 y = (display_height/2)
 pg.font.init()
-font = pg.ont.SysFont('calibri', 25)
+font = pg.font.SysFont('calibri', 25)
 first_tick = True
 ##PG-SETUP##
 
@@ -72,8 +73,9 @@ class ent:
   def __init__(self,Img,physics_type,tag,value,v,speed):
     self.Img = Img
     self.physics_type = physics_type
-    self.tag e = value
-    sef.v = v
+    self.tag = tag
+    self.value = value
+    self.v = v
     self.speed = speed
     
     
@@ -82,11 +84,12 @@ class ent:
 class gamestate:
   dead = False
   running = True
-  def (message):
+  def kill(message):
     textsurface = font.render("We Died", False, (0, 0, 0))
     screen.blit(textsurface,(400,0))
     pg.display.update()
     gamestate.running = False
+
   def clean(obj,radius):
     removed = 0
     i=0
@@ -97,6 +100,7 @@ class gamestate:
       i+=1
     print("removed" + " " + str(removed)+ " "  + "object")
     
+
 #player constructor
 class player:
   def __init__(self,v,speedX,speedY,gravity,img):
@@ -104,7 +108,7 @@ class player:
    self.gravity = gravity
    self.speedX = speedX
    self.speedY = speedY
-   self.img = im
+   self.img = img
 
 '''
 ***Things to add for physics***
@@ -121,8 +125,8 @@ player = player(pg.Vector2(600,500),0,0,True,img.stalinColor)
 
 #adding objects
 obj = [ent(img.fire,"obtainable","food",2,pg.Vector2(100,0),pg.Vector2(0,0)),
-       ent(img.gran,"obtainable","food",9,pg.Vector2(600,600),pg.Vector2(0,0)),
-       ent(img.reagan,"obtainable","food",9,pg.Vector2(0400),pg.Vector2(0,2))]
+       ent(img.grain,"obtainable","food",9,pg.Vector2(600,600),pg.Vector2(0,0)),
+       ent(img.reagan,"obtainable","food",9,pg.Vector2(0,400),pg.Vector2(0,2))]
 
 
 
@@ -133,12 +137,12 @@ def check_for_collisions(x,y,obj_list):
             return str(i)
 
 #Simple distance function
-def distance(x1,y,x2,y2):
+def distance(x1,y1,x2,y2):
     return round(((x2 - x1)**2 + (y2 - y1)**2)**0.5)
 
 #adds object to the object list
-def add(Img,physis_type,tag,value,vector,speedVector):
-    obj.append[ent(Img,physis_type,tag,value,vector,speedVector)]
+def add(Img,physics_type,tag,value,vector,speedVector):
+    obj.append[ent(Img,physics_type,tag,value,vector,speedVector)]
     return        
     
 #finds slope of two given 
@@ -148,50 +152,50 @@ def slope(x1,x2,y1,y2):
 
 #Handles colisions. ***NEEDS WORK***
 def physics(obj,x,y,xy,speed):
-  xt = 
+  xt = 0
   running=True
   player.v.x+=player.speedX
-  playerv.y+=player.speedY
+  player.v.y+=player.speedY
 
   #stops player from moving off the screen
   if player.v.x > display_width-32:
     player.v.x=display_width-32
   if player.v.x <0:
-    playr.v.x=0
+    player.v.x=0
   if player.v.y > display_height-50:
     player.v.y=display_height-50
   if player.v.y <0:
-    player..y=0
+    player.v.y=0
     
-  wile x<len(obj) and running==True:
+  while xt<len(obj) and running==True:
     skip = False
     obj[xt].v.x+=obj[xt].speed.x
     obj[xt].v.y+=obj[xt].speed.y
-    check = chek_for_collisions(player.v.x,player.v.y,obj)
+    check = check_for_collisions(player.v.x,player.v.y,obj)
 
-    if check == stcheck):
+    if check == str(check):
           
         if skip == False and obj[int(check)].physics_type == "obtainable":
           #print("obtainable")
           #inventory(inv1,"add",obj[int(check)].tag,obj[int(check)].value)
-          obj.po(int(check))
-          skip = rue 
+          obj.pop(int(check))
+          skip = True 
 
         if skip == False and obj[int(check)].physics_type == "solid":
           player.v.x , player.v.y = xy
           print("solid")
-          ski True
+          skip = True
         
           
         if skip == False and obj[int(check)].physics_type == "ghost":
           #print("ghost")
-          skip  True
+          skip = True
             
         if skip == False and obj[int(check)].physics_type == "resistive":
           if player.v.x > xy[0]:
             player.v.x=player.x - speed/1.3
           if player.v.x < xy[0]:
-            player.v.x=payer.x + speed/1.3
+            player.v.x=player.x + speed/1.3
           if player.v.y > xy[1]:
             player.v.y=player.y - speed/1.3
           if player.v.y < xy[1]:
@@ -203,16 +207,16 @@ def physics(obj,x,y,xy,speed):
     xt+=1
   
 #Gets keyboard input
-def keyoard():
+def keyboard():
     keyinput = pg.key.get_pressed()
     if keyinput[pg.K_LEFT]:
         player.v.x-= speed
     elif keyinput[pg.K_RIGHT]:
-        player.v.x speed
+        player.v.x+= speed
     elif keyinput[pg.K_UP]:
-        play.v.y-= speed
+        player.v.y-= speed
     elif keyinput[pg.K_DOWN]:
-        payer.v.y+= speed
+        player.v.y+= speed
     return keyinput
       
 #Draws object list onto screen
@@ -225,10 +229,10 @@ def draw(obj):
     return
 
 #this is broken right now
-def gifUpdae(gif):
-  path =str(gif[0])+str(os.listdir(gif[4])[gif[2]])
+def gifUpdate(gif):
+  path = str(gif[0])+str(os.listdir(gif[4])[gif[2]])
   print(path)
-  gif[] = pg.image.load(path)
+  gif[0] = pg.image.load(path)
   gif[1] = path
   
   
@@ -237,24 +241,24 @@ def shoot(start_x,start_y,dest_x,dest_y,BULLET_SPEED,Img):
       x_diff = dest_x - start_x
       y_diff = dest_y - start_y
       angle = math.atan2(y_diff, x_diff)
-      bullecenter_x = start_x
+      bulletcenter_x = start_x
       bulletcenter_y = start_y              
       bulletchange_x = math.cos(angle) * BULLET_SPEED
       bulletchange_y = math.sin(angle) * BULLET_SPEED
       obj[0].v.x +=bulletchange_x+rand.uniform(0.145612,0.8)
-      obj[0].v.y +=bulletchange_yrand.uniform(0.147867,0.8)
-      obj.append(ent(Img,"obainable","kill",3,pg.Vector2(start_x,start_y),pg.Vector2(bulletchange_x+rand.uniform(0.145612,0.8),bulletchange_y+rand.uniform(0.145612,0.8))))
+      obj[0].v.y +=bulletchange_y+rand.uniform(0.147867,0.8)
+      obj.append(ent(Img,"obtainable","kill",3,pg.Vector2(start_x,start_y),pg.Vector2(bulletchange_x+rand.uniform(0.145612,0.8),bulletchange_y+rand.uniform(0.145612,0.8))))
   
   
 #Moves all objects by a vector
-def scroll(oj,vector):
+def scroll(obj,vector):
     for x in obj:
       x.v+=vector
 
 
 #runs stuff asynchronously every 15 seconds
 def timer15():
-  gamestae.clean(obj,2000)
+  gamestate.clean(obj,2000)
   
 
 timer(15,timer15).start()
@@ -266,7 +270,7 @@ while gamestate.running == True:
     
     physics(obj,player.v.x,player.v.y,xy,speed)
     draw(obj)
-    screelit(player.img[0], (player.v.x,player.v.y))
+    screen.blit(player.img[0], (player.v.x,player.v.y))
     mx,my=pg.mouse.get_pos()
     count+=1
     #Debug and unused Functions
@@ -286,7 +290,7 @@ while gamestate.running == True:
       
 
       count=0
-      obj.append(ent(imgviet,"obtainable","kill",3,pg.Vector2(rand.randint(50,1000),rand.randint(50,1000)),pg.Vector2(0,0)))
+      obj.append(ent(img.soviet,"obtainable","kill",3,pg.Vector2(rand.randint(50,1000),rand.randint(50,1000)),pg.Vector2(0,0)))
       
       
     pg.display.update()
@@ -304,3 +308,9 @@ while gamestate.running == True:
 
     
     
+        
+    
+    
+
+
+
