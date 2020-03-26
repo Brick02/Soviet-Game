@@ -48,7 +48,7 @@ class img:
 count = 0
 speed = 4
 running=True
-pg.init(
+pg.init()
 display_width = 1000
 dispay_height = 800
 screen = pg.display.set_mode((display_width,display_height))
