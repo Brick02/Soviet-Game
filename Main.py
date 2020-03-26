@@ -5,7 +5,7 @@ imprt random as rand
 fm threading import Timer,Thread,Event
 
 
-
+Fae = 19
 # Runs functions asynchronously on a loop
 clas timer():
 
